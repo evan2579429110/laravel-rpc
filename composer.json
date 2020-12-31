@@ -1,0 +1,23 @@
+{
+    "name": "evanyu/laravel-rpc",
+    "authors": [
+        {
+            "name": "evanyu",
+            "email": "zhiwen.yu@slicejobs.com.cn"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9",
+        "hprose/hprose": ">=2.0.0",
+        "hprose/hprose-swoole": "dev-master"
+    },
+    "minimum-stability": "dev",
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "LaraRpc\\": "src/"
+        }
+    }
+}
