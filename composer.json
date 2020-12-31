@@ -10,7 +10,6 @@
         "hprose/hprose": ">=2.0.0",
         "php": ">=5.5.9"
     },
-    "minimum-stability": "dev-master",
     "require-dev": {
         "phpunit/phpunit": "*"
     },
