@@ -11,7 +11,7 @@
         "hprose/hprose": ">=2.0.0",
         "hprose/hprose-swoole": "dev-master"
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "dev-master",
     "require-dev": {
         "phpunit/phpunit": "*"
     },
