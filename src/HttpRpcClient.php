@@ -4,14 +4,17 @@
 namespace LaraRpc;
 
 use Hprose\Http\Client;
-use function PHPUnit\Framework\returnArgument;
 
 class HttpRpcClient extends RpcClient
 {
 
     protected $options = [];
 
-
+    /**
+     * 开始执行
+     * @param $data
+     * @return mixed
+     */
     public function start($data)
     {
         $sync = isset($data['sync'])?$data['sync']:$this->options['sync'];
@@ -19,9 +22,10 @@ class HttpRpcClient extends RpcClient
             .'?method='.$this->options['method'];
 
         $client = new Client($url, $sync);
-
-        foreach ($this->options['headers'] as $headerKey =>$value) {
-            $client->setHeader($headerKey, $value);
+        if (isset($this->options['headers'])){
+            foreach ($this->options['headers'] as $headerKey =>$value) {
+                $client->setHeader($headerKey, $value);
+            }
         }
         $this->setDebug($client);
         return $client->{$this->options['method']}($data);

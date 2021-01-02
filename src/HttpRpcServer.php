@@ -5,6 +5,7 @@ namespace LaraRpc;
 
 use Hprose\Http\Server;
 use Hprose\Future;
+use Illuminate\Support\Facades\App;
 
 class HttpRpcServer extends RpcServer
 {
@@ -18,7 +19,7 @@ class HttpRpcServer extends RpcServer
     public function server()
     {
         $server = new Server();
-        $class = new $this->options['className']();
+        $class = App::make($this->options['className']);
         $server->addMethod($this->options['method'], $class);
         $server->start();
     }

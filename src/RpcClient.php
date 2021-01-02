@@ -20,7 +20,18 @@ abstract class RpcClient implements RpcClientInterface
     {
         $this->options = $options;
         // 检测首字母是否包含/，不包含则添加
-        if ($this->options['route'][0] != '/'){
+        $this->setRouter();
+
+    }
+
+    /**
+     * 设置默认路由
+     */
+    protected function setRouter()
+    {
+        if (!isset($this->options['route'])){
+            $this->options['route'] = 'api/rpc/server';
+        }else if ($this->options['route'][0] != '/'){
             $this->options['route'] = '/'.$this->options['route'];
         }
     }
@@ -37,33 +48,44 @@ abstract class RpcClient implements RpcClientInterface
         return $this;
     }
 
-    abstract function start($data);
-
-    public function data()
+    /**
+     * 获取路由
+     * @param string $route
+     */
+    public function route($route = '')
     {
-        $this->options['data'] = [];
+        $this->options['route'] = $route;
     }
 
+    /**
+     * 设置header
+     * @param $headers
+     */
     public function header($headers)
     {
         $this->options['headers'] = $headers;
     }
 
-
-    protected function getExecute()
-    {
-        return $this->func;
-    }
+    /**
+     * 开始执行
+     * @param $data
+     * @return mixed
+     */
+    abstract function start($data);
 
     /**
      * 设置func名称
      * @param $name
      */
-    public function execute($name)
+    function execute($name)
     {
         $this->method = $name;
     }
 
+    /**
+     * 开启debug
+     * @param $client
+     */
     protected function setDebug($client)
     {
 
@@ -87,21 +109,6 @@ abstract class RpcClient implements RpcClientInterface
         }
 
     }
-
-
-//    public function __call($name, $arguments)
-//    {
-//        echo '----call---';
-////        $this->request($name,$arguments);
-//    }
-
-//    public static function __callStatic($name, $arguments)
-//    {
-//        echo '----callstatic---';
-//
-////        $query = new self();
-//        // TODO: Implement __callStatic() method.
-//    }
 
 
 }

@@ -4,11 +4,10 @@ return [
     'default' => env('CLIENT_CONNECTION', 'default'),
     'client' => [
         'default' => [
-            'driver' => env('RPC_DRIVER','http'),
-            'host' => env('RPC_HOST','http://192.168.102.14'), //host
+            'driver' => env('RPC_DRIVER','http'), //请求类型，暂定只有http
+            'host' => env('RPC_HOST','http://192.168.102.14'), //server端地址
             'port' => env('RPC_PORT','80'), //port
             'sync' => env('RPC_SYNC',false), // 异步1/同步0
-            'route' => 'api/hprose/server',
             /**
              * Enable debug output to the php error log
              */

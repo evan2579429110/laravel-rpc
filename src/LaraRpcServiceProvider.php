@@ -9,6 +9,8 @@
 namespace LaraRpc;
 
 use Illuminate\Foundation\AliasLoader;
+use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 use LaraRpc\Facdes\LaraRpcClient;
 use LaraRpc\Facdes\HttpRpcServer;
@@ -22,7 +24,7 @@ class LaraRpcServiceProvider extends ServiceProvider
     {
         // Publish config file setup
         $this->publishes([
-            __DIR__.'/../config/rpc.php' => config_path('rpc.php'),
+            __DIR__.'/config/rpc.php' => config_path('rpc.php'),
         ]);
 
         // Register Facades
@@ -30,6 +32,8 @@ class LaraRpcServiceProvider extends ServiceProvider
         $loader->alias('HttpRpcClient', HttpRpcClient::class);
         $loader->alias('HttpRpcServer', HttpRpcServer::class);
 
+        // set router
+        $this->setupRoutes($this->app->router);
     }
 
     /**
@@ -48,6 +52,16 @@ class LaraRpcServiceProvider extends ServiceProvider
         $this->app->singleton('HttpRpcServer',function($app,$params = []){
             return new RpcServerManager();
         });
+    }
+
+    public function setupRoutes(Router $router)
+    {
+        $router->group(['namespace' => 'LaraRpc'],function($router){
+            if(! $this->app->routesAreCached()){
+                require __DIR__ . '/router/rpc_api.php';
+            }
+        });
+
     }
 
 }

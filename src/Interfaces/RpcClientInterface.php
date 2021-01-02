@@ -13,13 +13,18 @@ interface RpcClientInterface
      */
     public function request($method = '');
 
+
     /**
-     * 设置func名称
-     * @param $name
+     * 获取路由
+     * @param string $route
      */
-    public function execute($name);
-
-    public function data();
+    public function route($route = '');
 
 
+    /**
+     * 开始执行
+     * @param $data
+     * @return mixed
+     */
+    public function start($data);
 }
