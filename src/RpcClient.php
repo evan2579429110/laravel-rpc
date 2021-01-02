@@ -30,7 +30,7 @@ abstract class RpcClient implements RpcClientInterface
     protected function setRouter()
     {
         if (!isset($this->options['route'])){
-            $this->options['route'] = 'api/rpc/server';
+            $this->options['route'] = '/api/rpc/server';
         }else if ($this->options['route'][0] != '/'){
             $this->options['route'] = '/'.$this->options['route'];
         }
@@ -55,6 +55,7 @@ abstract class RpcClient implements RpcClientInterface
     public function route($route = '')
     {
         $this->options['route'] = $route;
+        return $this;
     }
 
     /**
@@ -64,6 +65,7 @@ abstract class RpcClient implements RpcClientInterface
     public function header($headers)
     {
         $this->options['headers'] = $headers;
+        return $this;
     }
 
     /**
@@ -80,18 +82,21 @@ abstract class RpcClient implements RpcClientInterface
     function execute($name)
     {
         $this->method = $name;
+        return $this;
     }
 
     /**
      * 开启debug
      * @param $client
      */
-    protected function setDebug($client)
+    protected function setDebug($client,$url)
     {
 
         if ($this->options['debug']){
+            var_dump($url);
             $logHandler = function($name, array &$args, $context,$next) {
-                var_dump("before invoke:method".$name.',params:'.var_export($args, true));
+                var_dump("before invoke");
+                var_dump("method:".$name.',params:'.var_export($args, true));
                 $result = $next($name, $args, $context);
                 var_dump("after invoke:");
                 if (Future\isFuture($result)) {

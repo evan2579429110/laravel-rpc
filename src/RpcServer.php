@@ -17,9 +17,9 @@ abstract class RpcServer implements RpcServerInterface
     public function __construct($options)
     {
         $this->options = $options;
-        $this->options['method'] = isset($this->options['alias'])?$this->options['alias']:$this->options['method'];
         $this->headers = request()->headers;
     }
 
+    abstract function server();
 
 }

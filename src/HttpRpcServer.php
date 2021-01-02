@@ -4,7 +4,6 @@
 namespace LaraRpc;
 
 use Hprose\Http\Server;
-use Hprose\Future;
 use Illuminate\Support\Facades\App;
 
 class HttpRpcServer extends RpcServer
@@ -16,6 +15,9 @@ class HttpRpcServer extends RpcServer
 
     protected $headers;
 
+    /**
+     * server调用
+     */
     public function server()
     {
         $server = new Server();

@@ -3,8 +3,8 @@
 
 namespace LaraRpc;
 
-use App\Http\Controllers\HproseController;
 use Hprose\Http\Server;
+use Illuminate\Support\Facades\App;
 
 class RpcServerManager
 {

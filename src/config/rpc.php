@@ -2,6 +2,7 @@
 
 return [
     'default' => env('CLIENT_CONNECTION', 'default'),
+    'auth' => env('RPC_AUTH',false),
     'client' => [
         'default' => [
             'driver' => env('RPC_DRIVER','http'), //请求类型，暂定只有http

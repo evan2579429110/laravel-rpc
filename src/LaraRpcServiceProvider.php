@@ -10,12 +10,8 @@ namespace LaraRpc;
 
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Routing\Router;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
-use LaraRpc\Facdes\LaraRpcClient;
 use LaraRpc\Facdes\HttpRpcServer;
-use LaraRpc\Interfaces\RpcClientInterface;
-
 
 class LaraRpcServiceProvider extends ServiceProvider
 {
@@ -25,7 +21,7 @@ class LaraRpcServiceProvider extends ServiceProvider
         // Publish config file setup
         $this->publishes([
             __DIR__.'/config/rpc.php' => config_path('rpc.php'),
-        ]);
+        ],'laravel-rpc');
 
         // Register Facades
         $loader = AliasLoader::getInstance();

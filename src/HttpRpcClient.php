@@ -22,12 +22,13 @@ class HttpRpcClient extends RpcClient
             .'?method='.$this->options['method'];
 
         $client = new Client($url, $sync);
+
         if (isset($this->options['headers'])){
             foreach ($this->options['headers'] as $headerKey =>$value) {
                 $client->setHeader($headerKey, $value);
             }
         }
-        $this->setDebug($client);
+        $this->setDebug($client,$url);
         return $client->{$this->options['method']}($data);
     }
 
