@@ -11,7 +11,7 @@ namespace LaraRpc;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use LaraRpc\Facdes\LaraRpcClient;
-use LaraRpc\Facdes\LaraRpcServer;
+use LaraRpc\Facdes\HttpRpcServer;
 use LaraRpc\Interfaces\RpcClientInterface;
 
 
@@ -27,8 +27,8 @@ class LaraRpcServiceProvider extends ServiceProvider
 
         // Register Facades
         $loader = AliasLoader::getInstance();
-        $loader->alias('LaraRpcClient', LaraRpcClient::class);
-        $loader->alias('LaraRpcServer', LaraRpcServer::class);
+        $loader->alias('HttpRpcClient', HttpRpcClient::class);
+        $loader->alias('HttpRpcServer', HttpRpcServer::class);
 
     }
 
@@ -40,12 +40,13 @@ class LaraRpcServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('HttpRpcClient',function($app,$params = []){
+
+        $this->app->bind('HttpRpcClient',function($app,$params = []){
             return new RpcClientManager($this->app);
         });
 
         $this->app->singleton('HttpRpcServer',function($app,$params = []){
-            return new HttpRpcServer();
+            return new RpcServerManager();
         });
     }
 

@@ -32,7 +32,7 @@ class RpcClientManager implements ConnectionResolverInterface
      */
     public function getDefaultConnection()
     {
-        return $this->app->config('rpc.default');
+        return config('rpc.default');
     }
 
     protected function dirver()
@@ -49,14 +49,14 @@ class RpcClientManager implements ConnectionResolverInterface
      */
     protected function makeConnection($name)
     {
-        $config = $this->app->config('rpc.client')->get($name);
+        $config = config('rpc.client')[$name];
         $config['driver'] = $config['driver']?:$this->dirver();
+
         if ($resolver = Connection::getResolver($config['driver'])) {
             return $resolver($config['driver']);
         }
-
         switch ($config['driver']) {
-            case 'json':
+            case 'http':
                 return new HttpRpcClient($config);
                 break;
             default :

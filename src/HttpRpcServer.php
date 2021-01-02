@@ -3,15 +3,23 @@
 
 namespace LaraRpc;
 
+use Hprose\Http\Server;
+use Hprose\Future;
 
 class HttpRpcServer extends RpcServer
 {
 
-    public function server($params)
+    protected $options;
+
+    protected $data;
+
+    protected $headers;
+
+    public function server()
     {
         $server = new Server();
-        $funcName = (isset($params['funcName']) && !empty($params['funcName']))?new $params['funcName']():$this;
-        $server->addMethod($params['methodName'], $funcName);
+        $class = new $this->options['className']();
+        $server->addMethod($this->options['method'], $class);
         $server->start();
     }
 

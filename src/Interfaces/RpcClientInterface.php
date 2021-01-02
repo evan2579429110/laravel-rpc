@@ -11,7 +11,7 @@ interface RpcClientInterface
      * @param $method
      * @param string $func
      */
-    public function request($method, $func = '');
+    public function request($method = '');
 
     /**
      * 设置func名称

@@ -4,24 +4,22 @@ return [
     'default' => env('CLIENT_CONNECTION', 'default'),
     'client' => [
         'default' => [
-            'driver' => env('RPC_DRIVER','json'),
-            'host' => env('RPC_HOST','localhost'), //host
-            'port' => env('RPC_PORT','localhost'), //port
-            'timeout' => env('RPC_TIMEOUT',60), // time
+            'driver' => env('RPC_DRIVER','http'),
+            'host' => env('RPC_HOST','http://192.168.102.14'), //host
+            'port' => env('RPC_PORT','80'), //port
             'sync' => env('RPC_SYNC',false), // 异步1/同步0
-            'headers' => [
-//                'SJ_AUTH_TOKEN' =>  ''
-            ], // 请求头
+            'route' => 'api/hprose/server',
             /**
              * Enable debug output to the php error log
              */
-            'debug' => env('RPC_DEBUG', false),
-
-            /**
-             * SSL certificates verification
-             */
-            'ssl_verify_peer' => env('RPC_SSL', true),
+            'debug' => env('RPC_DEBUG', true),
         ]
     ],
-    'server' => []
+    'server' => [
+        'aaa' => [
+            'driver' => env('RPC_DRIVER','http'),
+//            'className' => '',
+//            'alias' => 'aaa'
+        ]
+    ]
 ];
