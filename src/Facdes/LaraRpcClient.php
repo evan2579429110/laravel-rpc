@@ -4,10 +4,10 @@ namespace LaraRpc\Facdes;
 
 use Illuminate\Support\Facades\Facade;
 
-class HttpRpcServer extends Facade {
+class LaraRpcClient extends Facade {
 
     protected static function getFacadeAccessor() {
-        return 'HttpRpcServer';
+        return 'LaraRpcClient';
     }
 
 }

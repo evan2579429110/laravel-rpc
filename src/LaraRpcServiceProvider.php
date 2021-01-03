@@ -11,7 +11,7 @@ namespace LaraRpc;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
-use LaraRpc\Facdes\HttpRpcServer;
+use LaraRpc\Facdes\LaraRpcServer;
 
 class LaraRpcServiceProvider extends ServiceProvider
 {
@@ -25,8 +25,8 @@ class LaraRpcServiceProvider extends ServiceProvider
 
         // Register Facades
         $loader = AliasLoader::getInstance();
-        $loader->alias('HttpRpcClient', HttpRpcClient::class);
-        $loader->alias('HttpRpcServer', HttpRpcServer::class);
+        $loader->alias('LaraRpcClient', HttpRpcClient::class);
+        $loader->alias('LaraRpcServer', LaraRpcServer::class);
 
         // set router
         $this->setupRoutes($this->app->router);
@@ -41,11 +41,11 @@ class LaraRpcServiceProvider extends ServiceProvider
     public function register()
     {
 
-        $this->app->bind('HttpRpcClient',function($app,$params = []){
+        $this->app->bind('LaraRpcClient',function($app,$params = []){
             return new RpcClientManager($this->app);
         });
 
-        $this->app->singleton('HttpRpcServer',function($app,$params = []){
+        $this->app->singleton('LaraRpcServer',function($app,$params = []){
             return new RpcServerManager();
         });
     }

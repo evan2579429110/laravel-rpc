@@ -7,7 +7,7 @@ $routing = config('rpc.auth')?['middleware' => ['rpc.auth']]:[];
 
 Route::group($routing, function (){
     Route::post( 'api/rpc/server', function (){
-        \LaraRpc\Facdes\HttpRpcServer::server();
+        \LaraRpc\Facdes\LaraRpcServer::server();
     });
 });
 
