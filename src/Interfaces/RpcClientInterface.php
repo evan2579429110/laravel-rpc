@@ -20,7 +20,6 @@ interface RpcClientInterface
      */
     public function route($route = '');
 
-
     /**
      * 开始执行
      * @param $data

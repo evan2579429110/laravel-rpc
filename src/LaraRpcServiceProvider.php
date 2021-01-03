@@ -20,7 +20,7 @@ class LaraRpcServiceProvider extends ServiceProvider
     {
         // Publish config file setup
         $this->publishes([
-            __DIR__.'/config/rpc.php' => config_path('rpc.php'),
+            __DIR__.'../config/rpc.php' => config_path('rpc.php'),
         ],'laravel-rpc');
 
         // Register Facades
@@ -54,7 +54,7 @@ class LaraRpcServiceProvider extends ServiceProvider
     {
         $router->group(['namespace' => 'LaraRpc'],function($router){
             if(! $this->app->routesAreCached()){
-                require __DIR__ . '/router/rpc_api.php';
+                require __DIR__ . '/../router/rpc_api.php';
             }
         });
 

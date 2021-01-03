@@ -1,10 +1,11 @@
 <?php
 
-
 namespace LaraRpc;
 
-use Hprose\Http\Server;
-use Illuminate\Support\Facades\App;
+use LaraRpc\Services\Http\HttpRpcServer;
+use LaraRpc\Services\Socket\SocketRpcServer;
+use LaraRpc\Services\Socket\wsRpcServer;
+use LaraRpc\Utils\Type;
 
 class RpcServerManager
 {
@@ -23,8 +24,14 @@ class RpcServerManager
         // 如果不存在会根据请求地址获取
         $driver = isset($this->options['driver'])?$this->options['driver']:'';
         switch ($driver){
-            case 'http':
+            case Type::HTTP:
                 $server = new HttpRpcServer($this->options);
+                break;
+            case Type::TCP || Type::UNIX:
+                $server = new SocketRpcServer($this->options);
+                break;
+            case Type::WS:
+                $server = new wsRpcServer($this->options);
                 break;
             default:
                 throw new \Exception("不存在的请求类型，请检查");

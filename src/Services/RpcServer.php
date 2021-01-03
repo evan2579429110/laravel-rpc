@@ -1,6 +1,6 @@
 <?php
 
-namespace LaraRpc;
+namespace LaraRpc\Services;
 
 use Hprose\Http\Server;
 use LaraRpc\Interfaces\RpcServerInterface;
@@ -19,6 +19,8 @@ abstract class RpcServer implements RpcServerInterface
         $this->options = $options;
         $this->headers = request()->headers;
     }
+
+
 
     abstract function server();
 

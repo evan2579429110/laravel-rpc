@@ -1,10 +1,8 @@
 <?php
 
-namespace LaraRpc;
+namespace LaraRpc\Services;
 
 use LaraRpc\Interfaces\RpcClientInterface;
-use Hprose\Http\Client;
-use Hprose\Http\Server;
 use Hprose\Future;
 
 
@@ -21,20 +19,8 @@ abstract class RpcClient implements RpcClientInterface
         $this->options = $options;
         // 检测首字母是否包含/，不包含则添加
         $this->setRouter();
-
     }
 
-    /**
-     * 设置默认路由
-     */
-    protected function setRouter()
-    {
-        if (!isset($this->options['route'])){
-            $this->options['route'] = '/api/rpc/server';
-        }else if ($this->options['route'][0] != '/'){
-            $this->options['route'] = '/'.$this->options['route'];
-        }
-    }
 
     /**
      * 设置请求
@@ -67,6 +53,13 @@ abstract class RpcClient implements RpcClientInterface
         $this->options['headers'] = $headers;
         return $this;
     }
+
+
+    /**
+     * 设置路由
+     * @return mixed
+     */
+    abstract function setRouter();
 
     /**
      * 开始执行
@@ -112,8 +105,5 @@ abstract class RpcClient implements RpcClientInterface
 
             $client->addInvokeHandler($logHandler);
         }
-
     }
-
-
 }

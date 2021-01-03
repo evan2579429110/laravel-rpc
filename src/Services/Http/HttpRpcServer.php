@@ -1,10 +1,11 @@
 <?php
 
 
-namespace LaraRpc;
+namespace LaraRpc\Services\Http;
 
 use Hprose\Http\Server;
 use Illuminate\Support\Facades\App;
+use LaraRpc\Services\RpcServer;
 
 class HttpRpcServer extends RpcServer
 {
