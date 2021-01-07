@@ -27,6 +27,6 @@ class Connection
      */
     public static function getResolver($driver)
     {
-        return static::$resolvers[$driver] ?? null;
+        return isset(static::$resolvers[$driver]) ?static::$resolvers[$driver]: null;
     }
 }
