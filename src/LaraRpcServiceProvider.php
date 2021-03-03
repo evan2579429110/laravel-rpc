@@ -12,6 +12,7 @@ use Illuminate\Foundation\AliasLoader;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use LaraRpc\Facdes\LaraRpcServer;
+use LaraRpc\Services\Http\HttpRpcClient;
 
 class LaraRpcServiceProvider extends ServiceProvider
 {

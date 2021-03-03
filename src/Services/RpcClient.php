@@ -44,6 +44,12 @@ abstract class RpcClient implements RpcClientInterface
         return $this;
     }
 
+    public function sync($sync = '')
+    {
+        $this->options['sync'] = $sync;
+        return $this;
+    }
+
     /**
      * 设置header
      * @param $headers

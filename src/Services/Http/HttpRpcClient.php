@@ -28,15 +28,14 @@ class HttpRpcClient extends RpcClient
      * @param $data
      * @return mixed
      */
-    public function start($data)
+    public function start($arguments,$isTransform = false)
     {
-        $sync = isset($data['sync'])?$data['sync']:$this->options['sync'];
         $url = $this->options['host'].':'.$this->options['port'].$this->options['route']
             .'?method='.$this->options['method'];
         //validate url
         $this->validateUrl($url);
 
-        $client = new Client($url, $sync);
+        $client = new Client($url, $this->options['sync']);
 
         if (isset($this->options['headers'])){
             foreach ($this->options['headers'] as $headerKey =>$value) {
@@ -44,7 +43,20 @@ class HttpRpcClient extends RpcClient
             }
         }
         $this->setDebug($client,$url);
-        return $client->{$this->options['method']}($data);
+
+        if (empty($arguments)){
+            $data = [];
+        }else{
+            $data = $arguments;
+        }
+
+        $ret = $client->{$this->options['method']}(...$data);
+        // 转换格式显示
+        if ($isTransform){
+            return $this->transformJson($ret);
+        }else{
+            return $ret;
+        }
     }
 
 
@@ -58,5 +70,33 @@ class HttpRpcClient extends RpcClient
         return true;
     }
 
+    /**
+     * 判断是否是json
+     * @param $ret
+     * @return $ret
+     */
+    private function transformJson($ret) {
+        if (is_string($ret)){
+            return $this->isJsonString($ret);
+        }elseif(is_array($ret)){
+            $res = [];
+            foreach ($ret as $key => $value){
+                $res[$key] = $this->transformJson($value);
+            }
+            return $res;
+        }else{
+            return $ret;
+        }
+    }
+
+    /**
+     * 判断是否是json的String
+     * @param String $string
+     * @return bool
+     */
+    private function isJsonString(String $string) {
+        return is_object(json_decode($string))?json_decode($string):$string;
+
+    }
 
 }

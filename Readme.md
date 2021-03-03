@@ -8,7 +8,7 @@ Table of Contents
 *[方法](#func)
 
 ## Requirements
-php: 5.5 ~ 8.0
+php: 5.6 ~ 8.0
 laravel: 5.1 ~ 8.0
 
 ## Examples
@@ -29,7 +29,7 @@ php artisan vendor:publish
 配置config/rpc.php文件client
 
 ``
-HttpRpcClient::request('test')->start('hello world');
+HttpRpcClient::request('test')->start('hello world',true);
 ``
 
 ### server端
